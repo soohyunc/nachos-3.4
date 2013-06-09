@@ -22,7 +22,7 @@
 #endif
 #endif
 
-static char *enableFlags = NULL; // controls which DEBUG messages are printed 
+static const char *enableFlags = NULL; // controls which DEBUG messages are printed 
 
 //----------------------------------------------------------------------
 // DebugInit
@@ -36,7 +36,7 @@ static char *enableFlags = NULL; // controls which DEBUG messages are printed
 //----------------------------------------------------------------------
 
 void
-DebugInit(char *flagList)
+DebugInit(const char *flagList)
 {
     enableFlags = flagList;
 }

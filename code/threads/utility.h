@@ -62,9 +62,9 @@ typedef void (*VoidNoArgFunctionPtr)();
 
 // Interface to debugging routines.
 
-extern void DebugInit(char* flags);	// enable printing debug messages
+extern void DebugInit(const char* flags);	// enable printing debug messages
 
-extern bool DebugIsEnabled(char flag); 	// Is this debug flag enabled?
+extern bool DebugIsEnabled(const char flag); 	// Is this debug flag enabled?
 
 extern void DEBUG (const char flag, const char* format, ...);  	// Print debug message
 							// if flag is enabled
