@@ -63,7 +63,7 @@ DebugIsEnabled(char flag)
 //----------------------------------------------------------------------
 
 void 
-DEBUG(char flag, char *format, ...)
+DEBUG(const char flag, const char *format, ...)
 {
     if (DebugIsEnabled(flag)) {
 	va_list ap;
