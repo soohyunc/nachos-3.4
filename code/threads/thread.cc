@@ -14,6 +14,7 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include <stdint.h>
 #include "copyright.h"
 #include "thread.h"
 #include "switch.h"
@@ -235,7 +236,7 @@ Thread::Sleep ()
 
 static void ThreadFinish()    { currentThread->Finish(); }
 static void InterruptEnable() { interrupt->Enable(); }
-void ThreadPrint(int arg){ Thread *t = (Thread *)arg; t->Print(); }
+void ThreadPrint(int arg){ Thread *t = (Thread *)(intptr_t)arg; t->Print(); }
 
 //----------------------------------------------------------------------
 // Thread::StackAllocate

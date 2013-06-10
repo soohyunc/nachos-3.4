@@ -20,6 +20,7 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include <stdint.h>
 #include "copyright.h"
 #include "interrupt.h"
 #include "system.h"
@@ -344,7 +345,7 @@ Interrupt::CheckIfDue(bool advanceClock)
 static void
 PrintPending(int arg)
 {
-    PendingInterrupt *pend = (PendingInterrupt *)arg;
+    PendingInterrupt *pend = (PendingInterrupt *)(intptr_t)arg;
 
     printf("Interrupt handler %s, scheduled at %d\n", 
 	intTypeNames[pend->type], pend->when);
