@@ -20,7 +20,9 @@ extern "C" {
 #include "copyright.h"
 #include "list.h"
 
+#if !defined(__APPLE__) || !defined(__MACH__)
 const int NULL = 0;
+#endif
 
 
 // The following class defines a "list element" -- which is
