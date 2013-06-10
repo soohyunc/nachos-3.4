@@ -16,7 +16,7 @@ extern "C" {
 const bool FALSE = false;
 const bool TRUE = true;
 
-#include <iostream.h>
+#include <iostream>
 #include "copyright.h"
 #include "list.h"
 #include "inheritstack.h"
@@ -198,13 +198,13 @@ Stack::SelfTest(int numToPush) {
     // Put a bunch of stuff in the stack...
     for (int i = 0; i < numToPush; i++) {
 	ASSERT(!Full());
-	cout << "pushing " << count << "\n";
+    std::cout << "pushing " << count << "\n";
 	Push(count++);
     }
     
     // ... and take it out again.
     while (!Empty()) {
-	cout << "popping " << Pop() << "\n";
+        std::cout << "popping " << Pop() << "\n";
     }
 }
 
@@ -218,10 +218,10 @@ main() {
     Stack *s1 = new ArrayStack(10);   // Constructor with an argument.
     Stack *s2 = new ListStack(); 
 
-    cout << "Testing ArrayStack\n";
+    std::cout << "Testing ArrayStack\n";
     s1->SelfTest(10);
 
-    cout << "Testing ListStack\n";
+    std::cout << "Testing ListStack\n";
     s2->SelfTest(10);
 
     delete s1;		   // always delete what you allocate

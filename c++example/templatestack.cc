@@ -16,7 +16,7 @@ extern "C" {
 #define ASSERT(expression)  assert(expression)
 }
 
-#include <iostream.h>
+#include <iostream>
 #include "copyright.h"
 #include "templatestack.h"
 
@@ -117,13 +117,13 @@ Stack<T>::SelfTest(T start) {
     
     // Put a bunch of stuff in the stack...
     while (!Full()) {
-	cout << "pushing " << count << "\n";
+        std::cout << "pushing " << count << "\n";
 	Push(count++);
     }
     
     // ... and take it out again.
     while (!Empty()) {
-	cout << "popping " << Pop() << "\n";
+        std::cout << "popping " << Pop() << "\n";
     }
 }
 
@@ -137,10 +137,10 @@ main() {
     Stack<int> *s1 = new Stack<int>(10);   
     Stack<char> *s2 = new Stack<char>(10);   
 
-    cout << "Testing Stack<int>\n";
+    std::cout << "Testing Stack<int>\n";
     s1->SelfTest(17);
 
-    cout << "Testing Stack<char>\n";
+    std::cout << "Testing Stack<char>\n";
     s2->SelfTest('a');
 
     delete s1;		   // always delete what you allocate

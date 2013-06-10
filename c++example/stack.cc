@@ -16,7 +16,7 @@ extern "C" {
 #define ASSERT(expression)  assert(expression)
 }
 
-#include <iostream.h>
+#include <iostream>
 #include "copyright.h"
 #include "stack.h"
 
@@ -109,13 +109,13 @@ Stack::SelfTest() {
     
     // Put a bunch of stuff in the stack...
     while (!Full()) {
-	cout << "pushing " << count << "\n";
+        std::cout << "pushing " << count << "\n";
 	Push(count++);
     }
     
     // ... and take it out again.
     while (!Empty()) {
-	cout << "popping " << Pop() << "\n";
+        std::cout << "popping " << Pop() << "\n";
     }
 }
 
