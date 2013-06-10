@@ -277,11 +277,11 @@ Thread::StackAllocate (VoidFunctionPtr func, int arg)
     *stack = STACK_FENCEPOST;
 #endif  // HOST_SNAKE
     
-    machineState[PCState] = (int) ThreadRoot;
-    machineState[StartupPCState] = (int) InterruptEnable;
-    machineState[InitialPCState] = (int) func;
+    machineState[PCState] = (int)(intptr_t) ThreadRoot;
+    machineState[StartupPCState] = (int)(intptr_t) InterruptEnable;
+    machineState[InitialPCState] = (int)(intptr_t) func;
     machineState[InitialArgState] = arg;
-    machineState[WhenDonePCState] = (int) ThreadFinish;
+    machineState[WhenDonePCState] = (int)(intptr_t) ThreadFinish;
 }
 
 #ifdef USER_PROGRAM

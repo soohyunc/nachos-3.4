@@ -15,6 +15,7 @@
 // All rights reserved.  See copyright.h for copyright notice and limitation 
 // of liability and disclaimer of warranty provisions.
 
+#include <stdint.h>
 #include "copyright.h"
 #include "list.h"
 
@@ -142,7 +143,7 @@ List::Mapcar(VoidFunctionPtr func)
 {
     for (ListElement *ptr = first; ptr != NULL; ptr = ptr->next) {
        DEBUG('l', "In mapcar, about to invoke %x(%x)\n", func, ptr->item);
-       (*func)((int)ptr->item);
+       (*func)((int)(intptr_t)ptr->item);
     }
 }
 
