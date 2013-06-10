@@ -252,7 +252,7 @@ void ThreadPrint(int arg){ Thread *t = (Thread *)arg; t->Print(); }
 void
 Thread::StackAllocate (VoidFunctionPtr func, int arg)
 {
-    stack = (int *) AllocBoundedArray(StackSize * sizeof(int));
+    stack = (unsigned int *) AllocBoundedArray(StackSize * sizeof(int));
 
 #ifdef HOST_SNAKE
     // HP stack works from low addresses to high addresses

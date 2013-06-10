@@ -77,7 +77,7 @@ class Thread {
   private:
     // NOTE: DO NOT CHANGE the order of these first two members.
     // THEY MUST be in this position for SWITCH to work.
-    int* stackTop;			 // the current stack pointer
+    unsigned int* stackTop;		 // the current stack pointer
     int machineState[MachineStateSize];  // all registers except for stackTop
 
   public:
@@ -105,7 +105,7 @@ class Thread {
   private:
     // some of the private data for this class is listed above
     
-    int* stack; 	 		// Bottom of the stack 
+    unsigned int* stack; 	 	// Bottom of the stack
 					// NULL if this is the main thread
 					// (If NULL, don't deallocate stack)
     ThreadStatus status;		// ready, running or blocked
