@@ -126,11 +126,11 @@ PollFile(int fd)
         pollTime.tv_usec = 0;                 	// no delay
 
 // poll file or socket
-//#ifdef HOST_i386
+#ifdef HOST_i386
     retVal = select(32, (fd_set*)&rfd, (fd_set*)&wfd, (fd_set*)&xfd, &pollTime);
-//#else
-//    retVal = select(32, &rfd, &wfd, &xfd, &pollTime);
-//#endif
+#else
+    retVal = select(32, &rfd, &wfd, &xfd, &pollTime);
+#endif
 
     ASSERT((retVal == 0) || (retVal == 1));
     if (retVal == 0)
@@ -474,8 +474,8 @@ AllocBoundedArray(int size)
     int pgSize = getpagesize();
     char *ptr = new char[pgSize * 2 + size];
 
-    //mprotect(ptr, pgSize, 0);
-    //mprotect(ptr + pgSize + size, pgSize, 0);
+    mprotect(ptr, pgSize, 0);
+    mprotect(ptr + pgSize + size, pgSize, 0);
     return ptr + pgSize;
 }
 
