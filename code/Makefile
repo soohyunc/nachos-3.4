@@ -2,8 +2,12 @@
 # All rights reserved.  See copyright.h for copyright notice and limitation 
 # of liability and disclaimer of warranty provisions.
 
+.PHONY: clean
+
 MAKE = make
 LPR = lpr
+RM = rm -vf
+FIND = find
 
 all: 
 	cd threads; $(MAKE) depend
@@ -21,7 +25,16 @@ all:
 
 # don't delete executables in "test" in case there is no cross-compiler
 clean:
-	$(RM) */{core,nachos,DISK,*.o,swtch.s} test/{*.coff} bin/{coff2flat,coff2noff,disassemble,out}
+# 	$(RM) */{core,nachos,DISK,*.o,swtch.s} test/{*.coff} bin/{coff2flat,coff2noff,disassemble,out}
+	$(FIND) . -name core -exec $(RM) {} +
+	$(FIND) . -name nachos -exec $(RM) {} +
+	$(FIND) . -name DISK -exec $(RM) {} +
+	$(FIND) . -name swtch.s -exec $(RM) {} +
+	$(FIND) . -name out -exec $(RM) {} +
+	$(FIND) . -name coff2noff -exec $(RM) {} +
+	$(FIND) . -name halt.coff -exec $(RM) {} +
+	$(FIND) . -name *.o -exec $(RM) {} +
+
 
 print:
 	/bin/csh -c "$(LPR) Makefile* */Makefile"
