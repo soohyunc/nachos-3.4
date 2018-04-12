@@ -14,10 +14,10 @@
 # all: coff2noff
 
 CC=gcc
-CFLAGS=-I./ -I../threads
+CFLAGS=-I./ -I../threads -g
 LD=gcc
 
-all: coff2noff disassemble 
+all: coff2noff
 
 # converts a COFF file to Nachos object format
 coff2noff: coff2noff.o

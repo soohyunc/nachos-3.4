@@ -35,6 +35,10 @@ extern "C" {
 #include <sys/file.h>
 #include <sys/un.h>
 #include <sys/mman.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/stat.h>
 #ifdef HOST_i386
 #include <sys/time.h>
 #endif
@@ -46,28 +50,28 @@ extern "C" {
 // UNIX routines called by procedures in this file 
 
 #ifdef HOST_SNAKE
-// int creat(char *name, unsigned short mode);
-// int open(const char *name, int flags, ...);
-#else
-int creat(const char *name, unsigned short mode);
+int creat(char *name, unsigned short mode);
 int open(const char *name, int flags, ...);
+//#else
+//int creat(const char *name, unsigned short mode);
+//int open(const char *name, int flags, ...);
 // void signal(int sig, VoidFunctionPtr func); -- this may work now!
-#ifdef HOST_i386
-int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
-             struct timeval *timeout);
-#else
-int select(int numBits, void *readFds, void *writeFds, void *exceptFds, 
-	struct timeval *timeout);
-#endif
+//#ifdef HOST_i386
+//int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
+//             struct timeval *timeout);
+//#else
+//int select(int numBits, void *readFds, void *writeFds, void *exceptFds, 
+//	struct timeval *timeout);
+//#endif
 #endif
 
-int unlink(char *name);
-int read(int filedes, char *buf, int numBytes);
-int write(int filedes, char *buf, int numBytes);
-int lseek(int filedes, int offset, int whence);
-int tell(int filedes);
-int close(int filedes);
-int unlink(char *name);
+//int unlink(char *name);
+//int read(int filedes, char *buf, int numBytes);
+//int write(int filedes, char *buf, int numBytes);
+//int lseek(int filedes, int offset, int whence);
+//int tell(int filedes);
+//int close(int filedes);
+//int unlink(char *name);
 
 // definition varies slightly from platform to platform, so don't 
 // define unless gcc complains
@@ -79,13 +83,13 @@ void srand(unsigned seed);
 int rand(void);
 unsigned sleep(unsigned);
 void abort();
-void exit();
-int mprotect(char *addr, int len, int prot);
+void exit(int);
+//int mprotect(char *addr, int len, int prot);
 
-int socket(int, int, int);
-int bind (int, const void*, int);
-int recvfrom (int, void*, int, int, void*, int *);
-int sendto (int, const void*, int, int, void*, int);
+//int socket(int, int, int);
+//int bind (int, const void*, int);
+//int recvfrom (int, void*, int, int, void*, int *);
+//int sendto (int, const void*, int, int, void*, int);
 }
 
 #include "interrupt.h"
@@ -122,11 +126,11 @@ PollFile(int fd)
         pollTime.tv_usec = 0;                 	// no delay
 
 // poll file or socket
-#ifdef HOST_i386
+//#ifdef HOST_i386
     retVal = select(32, (fd_set*)&rfd, (fd_set*)&wfd, (fd_set*)&xfd, &pollTime);
-#else
-    retVal = select(32, &rfd, &wfd, &xfd, &pollTime);
-#endif
+//#else
+//    retVal = select(32, &rfd, &wfd, &xfd, &pollTime);
+//#endif
 
     ASSERT((retVal == 0) || (retVal == 1));
     if (retVal == 0)
@@ -348,8 +352,12 @@ ReadFromSocket(int sockID, char *buffer, int packetSize)
     int retVal;
     extern int errno;
     struct sockaddr_un uName;
+#ifdef HOST_i386
+    unsigned int size = sizeof(uName);
+#else
     int size = sizeof(uName);
-   
+#endif
+
     retVal = recvfrom(sockID, buffer, packetSize, 0,
 				   (struct sockaddr *) &uName, &size);
 
@@ -373,7 +381,7 @@ SendToSocket(int sockID, char *buffer, int packetSize, char *toName)
 
     InitSocketName(&uName, toName);
     retVal = sendto(sockID, buffer, packetSize, 0,
-			  (char *) &uName, sizeof(uName));
+			  (sockaddr*) &uName, sizeof(uName));
     ASSERT(retVal == packetSize);
 }
 
@@ -466,8 +474,8 @@ AllocBoundedArray(int size)
     int pgSize = getpagesize();
     char *ptr = new char[pgSize * 2 + size];
 
-    mprotect(ptr, pgSize, 0);
-    mprotect(ptr + pgSize + size, pgSize, 0);
+    //mprotect(ptr, pgSize, 0);
+    //mprotect(ptr + pgSize + size, pgSize, 0);
     return ptr + pgSize;
 }
 

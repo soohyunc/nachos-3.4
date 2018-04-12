@@ -31,7 +31,7 @@ LDFLAGS =
 
 # These definitions may change as the software is updated.
 # Some of them are also system dependent
-CPP=/lib/cpp
+CPP=/us/bin/cpp
 CC = g++
 LD = g++
 AS = as
