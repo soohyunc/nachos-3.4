@@ -159,7 +159,7 @@ struct OpString {
     RegType args[3];
 };
 
-static struct OpString opStrings[] = {
+static const struct OpString opStrings[] = {
 	{"Shouldn't happen", {NONE, NONE, NONE}},
 	{"ADD r%d,r%d,r%d", {RD, RS, RT}},
 	{"ADDI r%d,r%d,%d", {RT, RS, EXTRA}},
