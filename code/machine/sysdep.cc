@@ -363,7 +363,7 @@ ReadFromSocket(int sockID, char *buffer, int packetSize)
 
     if (retVal != packetSize) {
         perror("in recvfrom");
-        printf("called: %x, got back %d, %d\n", buffer, retVal, errno);
+        printf("called: %p, got back %d, %d\n", buffer, retVal, errno);
     }
     ASSERT(retVal == packetSize);
 }
